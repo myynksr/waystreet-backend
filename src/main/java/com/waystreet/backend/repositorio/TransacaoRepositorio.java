@@ -1,3 +1,4 @@
+// Exemplo de TransacaoRepositorio.java
 package com.waystreet.backend.repositorio;
 
 import com.waystreet.backend.model.Transacao;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface TransacaoRepositorio extends JpaRepository<Transacao, Long> {
-
+    // Método para encontrar transações dentro de um período de datas
     List<Transacao> findByDataBetween(LocalDate startDate, LocalDate endDate);
 
 }
