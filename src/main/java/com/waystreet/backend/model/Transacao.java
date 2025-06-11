@@ -1,28 +1,35 @@
-package com.example.fluxocaixa.model;
+package com.waystreet.backend.model;
 
-import jakarta.persistence.*; // Importa anotações JPA para mapeamento objeto-relacional
-import lombok.Data; // Importa a anotação @Data do Lombok para gerar getters, setters, etc.
-import lombok.NoArgsConstructor; // Importa a anotação @NoArgsConstructor do Lombok
-import lombok.AllArgsConstructor; // Importa a anotação @AllArgsConstructor do Lombok
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-import java.math.BigDecimal; // Usado para valores monetários para evitar imprecisões de ponto flutuante
-import java.time.LocalDate; // Usado para armazenar a data da transação
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
-@Entity // Marca esta classe como uma entidade JPA, mapeando-a para uma tabela no banco de dados
-@Data // Anotação Lombok: Gera automaticamente getters, setters, toString(), equals() e hashCode()
-@NoArgsConstructor // Anotação Lombok: Gera um construtor sem argumentos
-@AllArgsConstructor // Anotação Lombok: Gera um construtor com todos os argumentos
+@Entity
+@Table(name = "transacoes")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transacao {
 
-    @Id // Marca o campo 'id' como a chave primária da tabela
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Configura a geração automática do ID (auto-incremento no PostgreSQL)
-    private Long id; // Identificador único da transação
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String descricao; // Descrição da transação (ex: "Salário", "Aluguel")
-    private BigDecimal valor; // Valor da transação (usar BigDecimal para precisão monetária)
+    @Column(nullable = false)
+    private LocalDate data;
 
-    @Enumerated(EnumType.STRING) // Mapeia o enum para uma string no banco de dados (ex: "RECEITA", "DESPESA")
-    private TipoTransacao tipo; // Tipo da transação (Receita ou Despesa)
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal valor;
 
-    private LocalDate data; // Data em que a transação ocorreu
+    @Column(nullable = false, length = 255)
+    private String descricao;
+
+    @Column(nullable = false, length = 7)
+    private String tipo;
+
+ 
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface TransacaoRepositorio extends JpaRepository<Transacao, Long> {
-    
+
     List<Transacao> findByDataBetween(LocalDate startDate, LocalDate endDate);
+
 }
